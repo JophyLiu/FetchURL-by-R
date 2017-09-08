@@ -1,0 +1,20 @@
+library(RCurl)
+library(XML)
+res=data.frame()
+for (i in 1:100){
+  url = paste("http://gz.lianjia.com/xiaoqu/pg",i,"/", sep = "")
+  web = getURL(url, .encoding = "utf-8")
+  htm = htmlParse(web, encoding = "utf-8")
+  nod= getNodeSet(htm,path="//div[@class='info']//div[@class='title']/a/text()")
+  info<-sapply(nod,xmlValue) 
+  res=rbind(res,data.frame(info))
+  Sys.sleep(1)
+}
+
+  url = paste("http://gz.lianjia.com/xiaoqu/pg2/", sep = "")
+  web = getURL(url, .encoding = "utf-8")
+  htm = htmlParse(web, encoding = "utf-8")
+  nod= getNodeSet(htm,path="//div[@class='info']//div[@class='title']/a/text()")
+  info<-sapply(nod,xmlValue) 
+  res=rbind(res,data.frame(info))
+  Sys.sleep(1)
